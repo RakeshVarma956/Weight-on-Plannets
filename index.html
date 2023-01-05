@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1{
+            color: aquamarine;
+        }
+        img{
+            height: 500px;
+            width: 100x;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Weight in Different Planets in our Solar System</h1>
+        <input type="number" name="" id="input">
+        <select name="Planets" id="Planets"></select>
+        <button onclick="calweight()" id="button" >Calculate Weight</button>
+
+    </div>
+    <h1 id="ans"></h1>
+    <img id="image" src="" alt="">
+
+    <script>
+        const planets = [
+            {planetName:"Sun", gravity: 27.9, image:"https://spaceplace.nasa.gov/gallery-sun/en/solar-flare.en.jpg"},
+            {planetName:"Mercury", gravity: 0.377 , image:"https://scx2.b-cdn.net/gfx/news/hires/2015/whatsimporta.jpg"},
+            {planetName:"Venus", gravity: 0.9032, image:"https://cdn.britannica.com/86/21186-050-C48F8AA1/radar-clouds-Scientists-surface-Venus-computer-image.jpg"},
+            {planetName:"Earth", gravity: 1, image:"https://cdn.pixabay.com/photo/2011/12/13/14/31/earth-11015__340.jpg"},
+            {planetName:"Moon", gravity: 0.1655, image:"https://media.istockphoto.com/id/179077120/photo/close-up-of-full-moon.jpg?b=1&s=170667a&w=0&k=20&c=vk8QgT_a1YAW3MKAtSaxzYdKOts6CLxB-OqD_2stWWU="},
+            {planetName:"Mars", gravity: 0.3895, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhWdDNlhorEtmH1sDNnKXGGrj0esGB4yriRA&usqp=CAU"},
+            {planetName:"Jupiter", gravity: 2.640, image:"https://www.sciencenews.org/wp-content/uploads/2021/07/070121_KC_jupiter_feat.jpg"},
+            {planetName:"Saturn", gravity: 1.139, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTIWPqNK9ACuaTRT9Itha96bGQtZrBVGZMDA&usqp=CAU"},
+            {planetName:"Uranus", gravity: 0.917, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSynQjzvXwodW4ZeAamkffCpI8GrxTLKTOSAQ&usqp=CAU"},
+            {planetName:"Neptune", gravity: 1.148, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToOYjEZssFiFzPLSTpGuf5KzxNhP-45giD6g&usqp=CAU"},
+        ]
+
+        planets.map((ele)=>{
+            const options = document.createElement("option")
+            options.innerHTML = ele.planetName
+            options.value = ele.gravity
+            options.setAttribute("imageSrc", ele.image)
+
+            const select = document.getElementById("Planets")
+            select.appendChild(options)
+
+            // console.log("options",options);
+
+        })
+
+        function calweight() {
+            var mass = +document.getElementById("input").value
+
+            const select = document.getElementById("Planets")
+            var selectedIndex = select.selectedIndex
+            // console.log(selectedIndex);
+            const selectedOption = select.options[selectedIndex]
+            // console.log(selectedOption);
+            const gravity = +selectedOption.value
+            // console.log(gravity);
+            const weight = mass*gravity
+            console.log(weight);
+
+            const h1 = document.getElementById("ans")
+
+            if(mass == ""){
+                h1.innerText = "Enter your mass"
+            }else if(mass<0){
+                h1.innerText = "Enter Weight greater than 0"
+            }else{
+                h1.innerText= `${Math.abs(weight).toFixed(2)} Kgs`
+                var imgsrc = selectedOption.getAttribute("imageSrc")
+                const img = document.getElementById("image")
+                img.src = imgsrc
+            }
+
+        }
+    </script>
+</body>
+</html>
