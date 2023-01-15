@@ -1,53 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
-            background-color: black;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url(./galaxy.gif);
+            width: 100vw;
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-size: cover;
             display: flex;
-            justify-content: center;
+            justify-content:space-evenly;
             align-items: center;
             flex-direction: column;
         }
-        h1{
+
+        h1 {
             color: aquamarine;
         }
-        img{
-            height: 500px;
-            width: 100x;
+
+        .input {
+            display: flex;
+            justify-content: space-evenly;
+            height: 2rem;
         }
+
+        input,
+        select,
+        button {
+            color: aquamarine;
+            border-radius: 5px;
+            background-color: rgb(144, 87, 180, 0.5);
+            border: none;
+            box-shadow: 2px 2px 5px pink;
+            font-size: 15px;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .bottom h1{
+            width: 50%;
+            height: 50%;
+            align-items: center;
+        }
+
+        .weight{
+            color: black;
+            font-size: 45px;
+            width: 100%;
+        }       
     </style>
 </head>
-<body>
-    <div>
-        <h1>Weight in Different Planets in our Solar System</h1>
-        <input type="number" name="" id="input">
-        <select name="Planets" id="Planets"></select>
-        <button onclick="calweight()" id="button" >Calculate Weight</button>
 
+<body>
+    <div class="top">
+        <h1>Weight in Different Planets in our Solar System</h1><br>
+        <div class="input">
+            <input type="number" name="" id="input">
+            <select name="Planets" id="Planets"></select>
+            <button onclick="calweight()" id="button">Calculate Weight</button>
+        </div>
     </div>
-    <h1 id="ans"></h1>
-    <img id="image" src="" alt="">
+    <div id="bottom">
+        <img id="image" src="" alt="">
+        <h1 id="ans"></h1>
+    </div>
 
     <script>
         const planets = [
-            {planetName:"Sun", gravity: 27.9, image:"https://spaceplace.nasa.gov/gallery-sun/en/solar-flare.en.jpg"},
-            {planetName:"Mercury", gravity: 0.377 , image:"https://scx2.b-cdn.net/gfx/news/hires/2015/whatsimporta.jpg"},
-            {planetName:"Venus", gravity: 0.9032, image:"https://cdn.britannica.com/86/21186-050-C48F8AA1/radar-clouds-Scientists-surface-Venus-computer-image.jpg"},
-            {planetName:"Earth", gravity: 1, image:"https://cdn.pixabay.com/photo/2011/12/13/14/31/earth-11015__340.jpg"},
-            {planetName:"Moon", gravity: 0.1655, image:"https://media.istockphoto.com/id/179077120/photo/close-up-of-full-moon.jpg?b=1&s=170667a&w=0&k=20&c=vk8QgT_a1YAW3MKAtSaxzYdKOts6CLxB-OqD_2stWWU="},
-            {planetName:"Mars", gravity: 0.3895, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhWdDNlhorEtmH1sDNnKXGGrj0esGB4yriRA&usqp=CAU"},
-            {planetName:"Jupiter", gravity: 2.640, image:"https://www.sciencenews.org/wp-content/uploads/2021/07/070121_KC_jupiter_feat.jpg"},
-            {planetName:"Saturn", gravity: 1.139, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTIWPqNK9ACuaTRT9Itha96bGQtZrBVGZMDA&usqp=CAU"},
-            {planetName:"Uranus", gravity: 0.917, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSynQjzvXwodW4ZeAamkffCpI8GrxTLKTOSAQ&usqp=CAU"},
-            {planetName:"Neptune", gravity: 1.148, image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToOYjEZssFiFzPLSTpGuf5KzxNhP-45giD6g&usqp=CAU"},
+            { planetName: "Sun", gravity: 27.9, image: "./SolarFull_SeanDoran_2880FullwidthLede-removebg-preview.png" },
+            { planetName: "Mercury", gravity: 0.377, image: "./whatsimporta-removebg-preview.png" },
+            { planetName: "Venus", gravity: 0.9032, image: "./radar-clouds-Scientists-surface-Venus-computer-image-removebg-preview.png" },
+            { planetName: "Earth", gravity: 1, image: "./earth-11015__340-removebg-preview.png" },
+            { planetName: "Moon", gravity: 0.1655, image: "./istockphoto-179077120-170667a-removebg-preview.png" },
+            { planetName: "Mars", gravity: 0.3895, image: "./images-removebg-preview.png" },
+            { planetName: "Jupiter", gravity: 2.640, image: "./images-removebg-preview (3).png" },
+            { planetName: "Saturn", gravity: 1.139, image: "./edu_ring_a-round_the_saturn-removebg-preview.png" },
+            { planetName: "Uranus", gravity: 0.917, image: "./images-removebg-preview (1).png" },
+            { planetName: "Neptune", gravity: 1.148, image: "./images-removebg-preview (2).png" },
         ]
 
-        planets.map((ele)=>{
+        planets.map((ele) => {
             const options = document.createElement("option")
             options.innerHTML = ele.planetName
             options.value = ele.gravity
@@ -55,38 +100,45 @@
 
             const select = document.getElementById("Planets")
             select.appendChild(options)
-
-            // console.log("options",options);
-
         })
 
         function calweight() {
             var mass = +document.getElementById("input").value
+
+            var bottom = document.getElementById("bottom")
+            bottom.setAttribute("style", "background-color:rgb(144, 87, 180, 0.4);width: 60%;height: fit-content;display: flex;align-items: center;justify-content: center;")
+            // console.log(bottom);
 
             const select = document.getElementById("Planets")
             var selectedIndex = select.selectedIndex
             // console.log(selectedIndex);
             const selectedOption = select.options[selectedIndex]
             // console.log(selectedOption);
+            const planetName = selectedOption.innerText
+            // console.log(planetName);
             const gravity = +selectedOption.value
             // console.log(gravity);
-            const weight = mass*gravity
+            const weight = mass * gravity
             console.log(weight);
+
+            // document.getElementById
 
             const h1 = document.getElementById("ans")
 
-            if(mass == ""){
+            if (mass == "") {
                 h1.innerText = "Enter your mass"
-            }else if(mass<0){
+            } else if (mass < 0) {
                 h1.innerText = "Enter Weight greater than 0"
-            }else{
-                h1.innerText= `${Math.abs(weight).toFixed(2)} Kgs`
+            } else {
+                h1.innerHTML = `The weight of the object on planet ${planetName} is  <h1 class="weight">${Math.abs(weight).toFixed(2)} Kgs</h1>   `
                 var imgsrc = selectedOption.getAttribute("imageSrc")
                 const img = document.getElementById("image")
                 img.src = imgsrc
+                img.setAttribute("style", "width : 50% ; height : 100%, ")
             }
 
         }
     </script>
 </body>
+
 </html>
